@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Participer à l'évenement!{% endblock %}
+
+{% block body %}
+    <header class="mt-2">
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="{{path('app_home')}}" class="d-flex align-items-center link-body-emphasis text-decoration-none" previewlistener="true">
+                <span class="fs-4">Utilisateur</span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{{ path('app_mesEvenements') }}">Mes évenements</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none bg-danger text-light rounded-3 p-2" href="{{ path('app_logout') }}">Se deconnecter</a>
+                {% else %}
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none bg-danger text-light rounded-3 p-2" href="{{ path('app_login') }}">Se connecter</a>
+                {% endif %}
+            </nav>
+        </div>
+            <h1 class="text-center text-uppercase">Participer à l'évenement</h1>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            {% for ticket in tickets %}
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal">{{ ticket.type }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ ticket.prix }}<small class="text-body-secondary fw-light">FCFA</small></h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                    <p>Nombre de place : {{ ticket.getNbrPlaceDispo() }}</p>
+                    </ul>
+                    <a href="{{path('app_jeParticipe',{'ticket_id' : ticket.id})}}" class="w-100 btn btn-lg btn-outline-primary">
+                        {% if ticket.type == "Standard" %}
+                            Participer
+                        {% else %}
+                            Payer
+                        {% endif %}
+                    </a>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        
+    </header>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin!{% endblock %}
+
+{% block body %}
+
+<div>
+    <header class="mt-2">
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="{{path('app_admin')}}" class="d-flex align-items-center link-body-emphasis text-decoration-none" previewlistener="true">
+            <span class="fs-4">Admin</span>
+        </a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{{ path('app_organizer_index') }}">Organisateurs</a>
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{{ path('app_ticket_index') }}">Tickets</a>
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{{ path('app_event_index') }}">Evenements</a>
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none bg-danger text-light rounded-3 p-2" href="{{ path('app_logout') }}">Se deconnecter</a>
+        </nav>
+        </div>
+
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal text-body-emphasis">Bonjour</h1>
+        <p class="fs-5 text-body-secondary"> Je suis l'administrateur 
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <p>Email: {{ app.user.email }}</p>
+            {% endif %}.
+        </p>
+        </div>
+    </header>
+</div>
+
+{% endblock %}

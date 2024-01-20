@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organisateurs{% endblock %}
+
+{% block body %}
+    <h1>Organisateurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Nom et prenom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for organizer in organizers %}
+            <tr>
+                <td>{{ organizer.id }}</td>
+                <td>{{ organizer.email }}</td>
+                <td>{{ organizer.tel }}</td>
+                <td>{{ organizer.fullname }}</td>
+                <td>
+                    <a href="{{ path('app_organizer_show', {'id': organizer.id}) }}">show</a>
+                    <a href="{{ path('app_organizer_edit', {'id': organizer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas d'organisateur pour l'instant</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_organizer_new') }}">Créer un organisateur</a>
+    <a href="{{ path('app_admin') }}">Retour à la page admin</a>
+{% endblock %}

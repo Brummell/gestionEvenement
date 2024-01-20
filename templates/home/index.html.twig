@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello User!{% endblock %}
+
+{% block body %}
+    <header class="mt-2">
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="{{path('app_home')}}" class="d-flex align-items-center link-body-emphasis text-decoration-none" previewlistener="true">
+                <span class="fs-4">Utilisateur</span>
+            </a>
+
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="{{ path('app_mesEvenements') }}">Mes évenements</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none bg-danger text-light rounded-3 p-2" href="{{ path('app_logout') }}">Se deconnecter</a>
+                {% else %}
+                    <a class="me-3 py-2 link-body-emphasis text-decoration-none bg-danger text-light rounded-3 p-2" href="{{ path('app_login') }}">Se connecter</a>
+                {% endif %}
+                
+            </nav>
+            </div>
+            <h1 class="text-center text-uppercase">Evenement en cours</h1>
+        {% for ev in event %}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+                    <h2>{{ ev.nom }}</h2>
+                    <p>{{ ev.description }}</p>
+                    <p>Lieu : {{ ev.lieu }} du {{ ev.date | date('Y-m-d H:i') }} au {{ ev.getDateFin() | date('Y-m-d H:i') }}</p>
+                    <a class="btn btn-outline-secondary" href="{{path('app_participer',{'event_id':ev.id})}}">Participer</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    </header>
+{% endblock %}
